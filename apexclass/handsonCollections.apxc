@@ -1,0 +1,153 @@
+public class handsonCollections {
+    
+    //Create a list with the name firstColorList   add blue,red,yellow,black  as values to the list . (Add  values one by one )//
+    //Create a list with name secondColorList , add red,blue,green,blue,green (Add all values at a time)
+    //Print the and count the values that are common in the firstColorList and secondColorlist . (red-2,blue - 3)
+    //Print and count  the values that are present only  in firstColorList  and not in secondColorlist (yellow-1,black - 1)
+    //Print and count the unique values from firstColorList, secondColorList  along with the exact count. (yellow-1,black-1,yellow-1,black-1,green-1) and ovral count 6
+    //Create a map with studentAge Name as key , age as pair value . Add the values {suresh-28,ramesh-27,hemath-27,rama-26} . add this values one by one to the map 
+    //Create a map with  StudentBranch . Name as key , Branch as value . {suresh-EEE,ramesh-ECE,hemath-EEE,rama-CSE}  Add All values at a time to the map 
+    // Print the name-marks-baranch of the student. (suresh-28-EEE,ramesh-27-ECE,hemath-27-EEE,rama-26-CSE)
+    //Print he name and branch of the student whose age more . (suresh-28-EEE)
+    //Print he name and branch of the student whose age less.  (rama-26-CSE)
+    //Print the name and branch of the student who are the same age. (ramesh-27-ECE,hemath-27-EEE) 
+    //Display names based on Group . (EEE:suresh,hemanth - ECE:ramesh-CSE:rama)
+    //Count the students in each branch .(EEE-2,ECE-1,CSE-1)
+    public static void exe(){
+        List<String> firstColorList= new List<String>();
+        firstColorList.add('blue'); firstColorList.add('red');firstColorList.add('yellow');firstColorList.add('black');
+        List<String> secondColorList= new List<String>{'red','blue','green','blue','green'};
+            
+            //Print the and count the values that are common in the firstColorList and secondColorlist . (red-2,blue - 3)
+            Map<String,integer> colorCount= new Map<String,integer>();
+        for(String fisrtColor:firstColorList){
+            for(String secondColor:secondColorList){
+                if(fisrtColor == secondColor){
+                    if(colorCount.containskey(fisrtColor)){
+                        colorCount.put(fisrtColor,colorCount.get(fisrtColor)+1); 
+                    }
+                    else{
+                        colorCount.put(fisrtColor,2);
+                    }
+                }  
+            }
+            
+        }
+        system.debug('@@@colorCount'+colorCount);
+        //Print and count  the values that are present only  in firstColorList  and not in secondColorlist (yellow-1,black - 1)
+        Map<String,integer> onlyFisrtColorCount= new Map<String,integer>();
+        for(String fisrtColor:firstColorList){
+            if(secondColorList.contains(fisrtColor)){
+                if(onlyFisrtColorCount.containskey(fisrtColor)){
+                    onlyFisrtColorCount.put(fisrtColor,onlyFisrtColorCount.get(fisrtColor)+1); 
+                }
+                else{
+                    onlyFisrtColorCount.put(fisrtColor,1);
+                }
+            }
+        }
+        system.debug('@@onlyFisrtColorCount'+onlyFisrtColorCount);
+        //Print and count the all values from firstColorList, secondColorList  along with the exact count.{black=1, blue=3, green=2, red=2, yellow=1}
+        Map<String,integer> allColorCount= new Map<String,integer>();
+        for(String fisrtColor:firstColorList){
+            if(allColorCount.containskey(fisrtColor)){
+                allColorCount.put(fisrtColor,allColorCount.get(fisrtColor)+1); 
+            }
+            else{
+                allColorCount.put(fisrtColor,1);
+            } 
+        }
+        for(String secondColor:secondColorList){
+            if(allColorCount.containskey(secondColor)){
+                allColorCount.put(secondColor,allColorCount.get(secondColor)+1); 
+            }
+            else{
+                allColorCount.put(secondColor,1);
+            } 
+        }
+        system.debug('@@@allColorCount@'+allColorCount);
+        //Create a map with studentAge Name as key , age as pair value . Add the values {suresh-28,ramesh-27,hemath-27,rama-26} . add this values one by one to the map 
+        Map<String,Integer> studentAge= new Map<String,Integer>();
+        studentAge.put('rama',26); 
+        studentAge.put('suresh',28); 
+        studentAge.put('ramesh',27); 
+        studentAge.put('hemath',27); 
+        //Create a map with  StudentBranch . Name as key , Branch as value . {suresh-EEE,ramesh-ECE,hemath-EEE,rama-CSE}  Add All values at a time to the map
+         Map<String,String> StudentBranch= new Map<String,String>{'suresh'=>'EEE','ramesh'=>'ECE','hemath'=>'EEE','rama'=>'CSE'};
+         // Print the name-marks-baranch of the student. 
+         for(String student:studentAge.keyset()){
+                if(StudentBranch.containskey(student)){
+                    system.debug('@@'+student+'-'+studentAge.get(student)+'-'+StudentBranch.get(student));   
+                }
+            }
+        //Print the name and branch of the student whose age more . (suresh-28-EEE)
+        String agedPerson;
+        for(String student:studentAge.keyset()){
+            // rama 26, suresh 28,  hem 27
+            if(agedPerson!=null && studentAge.get(agedPerson) < studentAge.get(student)){
+                agedPerson = student;  
+            } 
+            else if(agedPerson == null){
+                agedPerson = student;   
+            }
+        }
+         system.debug('@@agedPerson@@'+agedPerson+'-'+studentAge.get(agedPerson)+'-'+StudentBranch.get(agedPerson));
+        //Print the name and branch of the student whose age less.  (rama-26-CSE)
+        String lessAgedPerson;
+         for(String student:studentAge.keyset()){
+            // rama 26, suresh 28,  hem 27, 
+            if(lessAgedPerson!=null && studentAge.get(lessAgedPerson) > studentAge.get(student)){
+                lessAgedPerson = student;  
+            } 
+            else if(lessAgedPerson == null){
+                lessAgedPerson = student;   
+            }
+        }
+        system.debug('@@lessAgedPerson@@'+lessAgedPerson+'-'+studentAge.get(lessAgedPerson)+'-'+StudentBranch.get(lessAgedPerson));
+       // Print the name and branch of the student who are the same age. (ramesh-27-ECE,hemath-27-EEE) 
+       Map<Integer,List<String>> sameAgedStudents= new Map<Integer,List<String>>();
+        for(String student:studentAge.keyset()){
+            if(sameAgedStudents.containskey(studentAge.get(student))){
+               sameAgedStudents.get(studentAge.get(student)).add(student); 
+            }
+            else{
+                sameAgedStudents.put(studentAge.get(student),new List<String>{student}); 
+            }
+        }
+        for(Integer age:sameAgedStudents.keyset()){
+            if(sameAgedStudents.get(age).size()>1){
+               system.debug(sameAgedStudents.get(age)+'are having same age, their age is '+age);  
+            }
+            
+        }
+       // Display names based on Group . (EEE:suresh,hemanth - ECE:ramesh-CSE:rama)
+       Map<String,List<String>> groupwiseStudents= new Map<String,List<String>>();
+        for(String student:StudentBranch.keyset()){
+             if(groupwiseStudents.containskey(StudentBranch.get(student))){
+                
+               groupwiseStudents.get(StudentBranch.get(student)).add(student); 
+            }
+            else{
+                groupwiseStudents.put(StudentBranch.get(student),new List<String>{student}); 
+                 
+            }
+            
+        }
+        system.debug('@@groupwise Students'+groupwiseStudents);
+       //Count the students in each branch .(EEE-2,ECE-1,CSE-1)
+       Map<String,integer> groupwiseStudentsCount= new Map<String,integer>();
+        for(String student:StudentBranch.keyset()){
+             if(groupwiseStudentsCount.containskey(StudentBranch.get(student))){
+                
+               groupwiseStudentsCount.put(StudentBranch.get(student),groupwiseStudentsCount.get(StudentBranch.get(student))+1); 
+            }
+            else{
+                groupwiseStudentsCount.put(StudentBranch.get(student),1); 
+                 
+            }
+            
+        }
+        system.debug('@@groupwise Studentcount'+groupwiseStudentsCount);
+             }
+    
+}
